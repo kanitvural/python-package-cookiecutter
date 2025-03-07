@@ -41,4 +41,6 @@
             "color": "#90EE90"
         }
     ],
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "notebook.defaultFormatter": "ms-python.black-formatter",
 }

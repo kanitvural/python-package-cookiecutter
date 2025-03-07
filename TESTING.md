@@ -1,2 +1,3 @@
 - Does linting pass in a newly generated project?
+    - Makefile
 - Can we succesfully cookiecut our template?
