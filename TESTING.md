@@ -1,0 +1,2 @@
+- Does linting pass in a newly generated project?
+- Can we succesfully cookiecut our template?
