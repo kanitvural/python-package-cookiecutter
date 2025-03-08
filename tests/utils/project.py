@@ -1,9 +1,22 @@
 import json
 import subprocess
 from copy import deepcopy
+from pathlib import Path
 from typing import Dict
 
 from tests.constants import PROJECT_DIR
+
+
+def initialize_git_repo(repo_dir: Path):
+    # proje kuruldukdan sonra precommit alışması için git init lazım
+    subprocess.run(["git", "init"], cwd=repo_dir, check=True)
+    subprocess.run(["git", "branch", "-M", "main"], cwd=repo_dir, check=True)
+    subprocess.run(["git", "add", "--all"], cwd=repo_dir, check=True)
+    subprocess.run(
+        ["git", "commit", "-m", "'feat: initial commit by pytest'"],
+        cwd=repo_dir,
+        check=True,
+    )
 
 
 def generate_project(template_values: Dict[str, str]):
