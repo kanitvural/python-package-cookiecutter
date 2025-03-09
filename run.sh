@@ -10,7 +10,7 @@ function install {
     python -m pip install cookiecutter pytest pre-commit
 }
 
-# run linting, formatting, and other static code quality tools
+# run linting, formatting, and other static code quality tools using pre-commit
 function lint {
     pre-commit run --all-files
 }
