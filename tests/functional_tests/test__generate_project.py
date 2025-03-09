@@ -1,3 +1,5 @@
+"""Test generating a project using cookiecutter."""
+
 from pathlib import Path
 
 
