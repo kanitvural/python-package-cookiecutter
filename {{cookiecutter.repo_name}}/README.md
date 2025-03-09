@@ -1,20 +1,20 @@
-# python-package-cookiecutter
+# {{cookiecutter.repo_name}}
 
 ## Quick start
 
 ```bash
-pip install python-package-cookiecutter
+pip install {{cookiecutter.repo_name}}
 ```
 
 ```python
-from example_pkg import ...
+from {{cookiecutter.package_import_name}} import ...
 ```
 
 ## Contributing
 
 ```bash
 # clone the repo
-git clone https://github.com/kanitvural/python-package-cookiecutter.git
+git clone https://github.com/kanitvural/{{cookiecutter.repo_name}}.git
 
 # install the dev dependencies
 make install

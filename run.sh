@@ -42,7 +42,7 @@ function generate-project {
     git init
     git add --all
     git branch -M main
-    git commit -m "feat: generated sample project with python-package-cookiecutter"
+    git commit -m "feat: generated sample project with {{cookiecutter.package_import_name}}"
 
 }
 
