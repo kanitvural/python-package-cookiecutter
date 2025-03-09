@@ -1,4 +1,4 @@
-""" "Fixtures."""
+"""Fixtures."""
 
 import shutil
 import subprocess
