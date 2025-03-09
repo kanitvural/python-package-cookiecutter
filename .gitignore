@@ -173,3 +173,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 sample
+.mypy_cache
+.pytest_cache
+.git
+test-reports

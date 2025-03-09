@@ -22,6 +22,3 @@ make install
 # run the tests
 make test
 ```
-
-
-

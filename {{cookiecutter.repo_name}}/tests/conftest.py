@@ -1,3 +1,5 @@
+"""Conftest Configuration for Pytest."""
+
 import sys
 from pathlib import Path
 
