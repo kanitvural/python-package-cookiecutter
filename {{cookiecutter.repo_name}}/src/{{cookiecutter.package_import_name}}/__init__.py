@@ -1,1 +1,1 @@
-"""{{cookiecutter.package_import_name}}"""
+"""{{cookiecutter.package_import_name}}."""
