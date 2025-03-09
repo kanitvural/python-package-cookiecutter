@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 set -e
 
@@ -81,7 +81,7 @@ function try-load-dotenv {
 }
 
 
-# args: 
+# args:
 #   REPO_NAME - name of the repository
 #   GUTHUB_USERNAME - name of the github user, e.g. kanitvural
 #   IS_PUBLIC_REPO - If true, the repository will be public, otherwise private
@@ -104,7 +104,7 @@ function create-repo-if-not-exists {
     fi
 
     echo "Creating $GITHUB_USERNAME/$REPO_NAME as $PUBLIC_OR_PRIVATE..."
-    gh repo create "$GITHUB_USERNAME/$REPO_NAME" "--$PUBLIC_OR_PRIVATE" 
+    gh repo create "$GITHUB_USERNAME/$REPO_NAME" "--$PUBLIC_OR_PRIVATE"
 
     # push initial README to repository
     push-initial-readme-to-repository
@@ -133,13 +133,13 @@ function configure-repo {
 
 # args:
 #   REPO_NAME - name of the repository
-#   GITHUB_USERNAME - name of the github user, e.g. kanitvural 
+#   GITHUB_USERNAME - name of the github user, e.g. kanitvural
 
 function open-pr-with-generated-project {
     rm -rf "$REPO_NAME" ./outdir
 
     install
-    
+
     # clone the repository
     gh repo clone "$GITHUB_USERNAME/$REPO_NAME"
 
@@ -176,7 +176,7 @@ EOF
 
     # re-stage the files modified by pre-commit
     git add --all
-    
+
     # commit the changes and push them to the remote feature branch
     git commit -m "feat: populated from python-package-cookiecutter template"
     git push origin "feat/populating-from-template"
