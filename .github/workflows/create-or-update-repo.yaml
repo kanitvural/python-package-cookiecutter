@@ -17,8 +17,8 @@ on:
         required: true
         type: string
 # Test
-env:
-  GH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+# env:
+#   GH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
 jobs:
   create-repo-if-not-exists:
@@ -33,6 +33,7 @@ jobs:
           git config --global user.name "kanitvural"
       - name: Set environment variables
         env:
+          GH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           REPO_NAME: ${{ github.event.inputs.repo_name }}
           GITHUB_USERNAME: kanitvural
           IS_PUBLIC_REPO: ${{ github.event.inputs.is_public_repo }}
