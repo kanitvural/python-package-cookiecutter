@@ -16,7 +16,7 @@ on:
         description: "The name of the package to import in the generated project."
         required: true
         type: string
-
+# Test
 env:
   GH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
