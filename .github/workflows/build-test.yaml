@@ -8,6 +8,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  GH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+
 jobs:
 
   check-version-txt:
