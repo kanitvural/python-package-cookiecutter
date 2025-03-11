@@ -198,7 +198,7 @@ EOF
     # commit the changes and push them to the remote feature branch
     git commit -m 'feat!: populated from `python-package-cookiecutter` template'
 
-    # if GH_TOKEN is set, set the remote url to it
+    # if GH_TOKEN is set, set the remote url to it.
     if [[ -n "$GH_TOKEN" ]]; then
         git remote set-url origin "https://$GITHUB_USERNAME:$GH_TOKEN@github.com/$GITHUB_USERNAME/$REPO_NAME"
     fi
