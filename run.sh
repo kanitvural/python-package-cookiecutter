@@ -2,6 +2,7 @@
 
 set -e
 
+
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # install core and development Python dependencies into the currently activated venv
@@ -92,7 +93,9 @@ function create-repo-if-not-exists {
     echo "Checking to see if $GITHUB_USERNAME/$REPO_NAME exists..."
     gh repo view $GITHUB_USERNAME/$REPO_NAME > /dev/null 2>&1 \
     && echo "repo exist, exiting..." && \
-    return 0
+    return 0 \
+    && echo "repo exist" \
+    && echo exit 0
 
     echo "$GITHUB_USERNAME/$REPO_NAME does not exist. Creating..."
 
@@ -122,6 +125,9 @@ function push-initial-readme-to-repository {
     git branch -M main || true
     git add --all
     git commit -m "feat: created repository"
+    if [[ -n "$GH_TOKEN" ]]; then
+        git remote set-url origin "https://$GITHUB_USERNAME:$GH_TOKEN@github.com/$GITHUB_USERNAME/$REPO_NAME"
+    fi 
     git push origin main
 }
 
@@ -149,7 +155,7 @@ function configure-repo {
         -F "required_status_checks[checks][][context]=lint-format-and-static-code-checks" \
         -F "required_status_checks[checks][][context]=build-wheel-and-sdist" \
         -F "required_status_checks[checks][][context]=execute-tests" \
-        -F "required_pull_request_reviews[required_approving_review_count]=1" \
+        -F "required_pull_request_reviews[required_approving_review_count]=0" \
         -F "enforce_admins=null" \
         -F "restrictions=null" > /dev/null
 }
@@ -208,6 +214,13 @@ EOF
 
     # commit the changes and push them to the remote feature branch
     git commit -m "feat: populated from python-package-cookiecutter template"
+
+    # if GH_TOKEN is set, set the remote url to the token
+    if [[ -n "$GH_TOKEN" ]]; then
+        git remote set-url origin "https://$GITHUB_USERNAME:$GH_TOKEN@github.com/$GITHUB_USERNAME/$REPO_NAME"
+    fi 
+
+
     git push origin "$UNIQUE_BRANCH_NAME"
 
     # open a PR from the feature branch into main
@@ -219,6 +232,17 @@ EOF
         --repo "$GITHUB_USERNAME/$REPO_NAME"
 }
 
+function create-sample-repo {
+    git add .github/ \
+    && git commit -m "fix: debugging the create-or-update-repo.yaml workflow" \
+    && git push origin main || true
+
+    gh workflow run .github/workflows/create-or-update-repo.yaml \
+        -f repo_name=generated-repo-2 \
+        -f package_import_name=generated-repo-2 \
+        -f is_public_repo=true \
+        --ref main
+}
 # print all functions in this file
 function help {
     echo "$0 <task> <args>"
