@@ -18,7 +18,6 @@ permissions:
   contents: write
 
 jobs:
-  
   check-version-txt:
     runs-on: ubuntu-latest
     steps:
