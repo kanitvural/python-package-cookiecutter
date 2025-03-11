@@ -4,16 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       repo_name:
-        description: "The name of the repository to create."
+        description: Name of the repo to create
         required: true
         type: string
       is_public_repo:
-        description: "Whether to make the repository public or private. If unchecked, repo is private."
+        description: If unchecked, repo is private.
         required: true
-        default: true
+        default: false
         type: boolean
       package_import_name:
-        description: "The name of the package to import in the generated project."
+        description: Used in imports, e.g. `from <name> import ...`
         required: true
         type: string
 
@@ -31,17 +31,16 @@ jobs:
         run: |
           git config --global user.email "test@test.com"
           git config --global user.name "kanitvural"
-      - name: Set environment variables
+      - run: |
+          bash -x run.sh create-repo-if-not-exists
         env:
-          GH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           REPO_NAME: ${{ github.event.inputs.repo_name }}
           GITHUB_USERNAME: kanitvural
           IS_PUBLIC_REPO: ${{ github.event.inputs.is_public_repo }}
-        run: |
-            bash run.sh create-repo-if-not-exists
+
 
   configure-repo:
-    needs: create-repo-if-not-exists
+    needs: [create-repo-if-not-exists]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,17 +50,16 @@ jobs:
         run: |
           git config --global user.email "test@test.com"
           git config --global user.name "kanitvural"
-      - name: Set environment variables
+      - run: |
+          bash -x run.sh configure-repo
         env:
           TEST_PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
           PROD_PYPI_TOKEN: ${{ secrets.PROD_PYPI_TOKEN }}
           REPO_NAME: ${{ github.event.inputs.repo_name }}
           GITHUB_USERNAME: kanitvural
-        run: |
-            bash run.sh configure-repo
 
   open-pr-with-generated-project:
-    needs: create-repo-if-not-exists
+    needs: [create-repo-if-not-exists]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -71,10 +69,9 @@ jobs:
         run: |
           git config --global user.email "test@test.com"
           git config --global user.name "kanitvural"
-      - name: Set environment variables
+      - run: |
+          bash -x run.sh open-pr-with-generated-project
         env:
           REPO_NAME: ${{ github.event.inputs.repo_name }}
           PACKAGE_IMPORT_NAME: ${{ github.event.inputs.package_import_name }}
           GITHUB_USERNAME: kanitvural
-        run: |
-            bash run.sh open-pr-with-generated-project
