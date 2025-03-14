@@ -23,7 +23,7 @@ repos:
       - id: check-symlinks
       # Fail if staged files are above a certain size.
       # To add a large file, use 'git lfs track <file>; git add <file> to track large files with
-      # git-lfs rather than commiting them directly to the git history
+      # git-lfs rather than commiting them directly to the git history.
       - id: check-added-large-files
         args: ["--maxkb=500"]
 
@@ -73,7 +73,7 @@ repos:
         args:
           - --config=./pyproject.toml
 
-  # - repo: https://github.com/PyCQA/pylint  -issue
+  # - repo: https://github.com/PyCQA/pylint
   #   rev: v2.16.3
   #   hooks:
   #     - id: pylint
